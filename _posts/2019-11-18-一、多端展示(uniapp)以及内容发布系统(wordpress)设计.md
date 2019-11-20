@@ -1,6 +1,6 @@
 ---
 layout: post
-title: hershoes系统整体设计
+title: 一、多端展示(uniapp)以及内容发布系统(wordpress)设计 
 tags: 整体设计 selenium wordpress uniapp h5 android
 categories: 技术原创
 description: 多端展示以及内容发布系统设计
