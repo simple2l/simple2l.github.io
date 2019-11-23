@@ -34,7 +34,112 @@ XAMPP（Apache+MySQL+PHP+PERL）是一个功能强大的建站集成软件包。
 
 ![install](https://raw.githubusercontent.com/liuleidong/MarkdownImg/master/hs/wordpress_install.png)
 
+在xampp面板的MySQL，点击Admin按钮打开phpmyadmin，创建一个数据库：
 
+![创建数据库](https://github.com/liuleidong/MarkdownImg/blob/master/hs/wordpress_dbc.png?raw=true)
+
+浏览器中点击"现在就开始"按钮并填写信息：
+
+![数据库信息](https://github.com/liuleidong/MarkdownImg/blob/master/hs/wordpress_db.png?raw=true)
+
+注意生产环境中，密码切勿是空的
+
+![安装完成](https://github.com/liuleidong/MarkdownImg/blob/master/hs/insall_done.png?raw=true)
+
+设置站点信息并开始安装
+
+![安装](https://github.com/liuleidong/MarkdownImg/blob/master/hs/wordpress_title.png?raw=true)
+
+![安装完成后登录](https://github.com/liuleidong/MarkdownImg/blob/master/hs/login.png?raw=true)
+
+访问 http://127.0.0.1/wordpress/ 即可看到默认主题的站点
 
 ### wordpress主题启用
+
+将下载的主题解压，放入wordpress对应目录：
+
+![解压放入](https://github.com/liuleidong/MarkdownImg/blob/master/hs/theme.png?raw=true)
+
+登录后台管理，进入外观=>主题设置界面，启用主题
+
+![启用](https://github.com/liuleidong/MarkdownImg/blob/master/hs/theme_on.png?raw=true)
+
+设置插件为启用 WizyLike WP-Img WP-PostViews
+
+![插件](https://github.com/liuleidong/MarkdownImg/blob/master/hs/plugins.png?raw=true)
+
+查看站点
+
+![站点](https://github.com/liuleidong/MarkdownImg/blob/master/hs/error.png?raw=true)
+
+### 发布文章
+
+打开后台管理，添加文章，填写标题和图像区块
+
+![添加](https://github.com/liuleidong/MarkdownImg/blob/master/hs/add_post.png?raw=true)
+
+图片可以上传添加，也可以输入url查看
+
+![url](https://github.com/liuleidong/MarkdownImg/blob/master/hs/add_post1.png?raw=true)
+
+完成后，发布文章
+
+![文章](https://github.com/liuleidong/MarkdownImg/blob/master/hs/post.png?raw=true)
+
+### 问题：iphoto主题显示的图集只显示两个
+
+wp-content/themes/iphoto/index.php中有如下代码
+
+```php+HTML
+<?php get_header(); ?>
+	<div id="cate" data-type="index" data-name="index"></div>
+	<div id="container">
+		
+		<?php if(have_posts()):
+			$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+			$paged = $paged*4-3;
+			$prePage = get_option('posts_per_page')/4;
+			if(isset($_GET['order'])){
+				$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+				$args = array(
+					'meta_key' => $_GET['order'],
+					'orderby'   => 'meta_value_num',
+					'showposts'=> $prePage,
+					'paged' => $paged,
+					'order' => DESC
+				);
+			}else{
+				$args = array(
+					'showposts'=>$prePage,
+					'paged' => $paged
+				);
+			}
+			query_posts($args);
+			while (have_posts()) : the_post(); ?>
+			<?php get_template_part( 'content', get_post_format() ); ?>
+		<?php endwhile; endif; ?>
+	</div>
+	<div id="pagenavi">
+		<?php pagenavi();?>
+	</div>
+<?php get_footer(); ?>
+```
+
+`$prePage = get_option('posts_per_page')/4;`
+
+posts_per_page在后台管理界面中，可以设置最多显示多少文章
+
+![显示](https://github.com/liuleidong/MarkdownImg/blob/master/hs/page.png?raw=true)
+
+设置大一些即可
+
+![主页](https://github.com/liuleidong/MarkdownImg/blob/master/hs/hs.png?raw=true)
+
+### 最终效果
+
+PC:www.hershoes.top
+
+手机H5:[m.hershoes.top](www.hershoes.top)
+
+安卓客户端：http://hershoes.top/hhs.apk
 
